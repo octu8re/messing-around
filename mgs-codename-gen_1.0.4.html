@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shotgun Impala's MGS Codename Generator</title>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+    html{
+    font-family: 'Bebas Neue', sans-serif;
+    }
+    html,body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+    h1{
+      color:red;
+    }
+    body {
+      background: repeating-linear-gradient(
+        45deg,
+        #875B36,
+        #111111 20px,
+        #DFC892 30px,
+        #fafafa 30px
+      );
+      overflow: hidden;
+    }
+    .content{
+
+      color: #eee;
+
+    }
+    #codename {
+      background-color: black;
+      border-radius: 2em;
+      padding:40px;
+      font-size:5em;
+
+}
+    button {
+      font-family: 'Bebas Neue', sans-serif;
+      height:80px;
+      background: yellow;
+      color:red;
+      padding:10px;
+}
+            /* Styles for desktop */
+    @media screen and (min-width: 600px) {
+            h1{
+              font-size:3.5em;
+            }
+            button {
+                font-size: 2em;
+            }
+
+            #codename {
+                font-size: 7em;
+            }
+        }
+      .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        rgba(0, 0, 0, .8),
+        rgba(0, 0, 0, 0)
+      );
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="content">
+            <center>
+                <span style="font-size:2em;">Shotgun Impala's</span><br>
+                <h1>
+                  <span>MGS</span> 
+                  <span style="color:white;">Codename Generator</span>
+                </h1>
+                <span style="font-size:1.5em;">v</span><span style="font-size:2em;">.1.0.4</span>
+                <p id="codename"></p>
+                <button onclick="generateCodename()">Generate</button><br>
+		<button id="copyButton" onclick="copyToClipboard()" disabled>Copy to Clipboard</button>
+
+		<!--<button style="display: none;" id="copyButton" onclick="copyToClipboard()">Copy to clipboard</button>-->
+		<!--<button onclick="copyToClipboard()">Copy to clipboard</button>-->
+            </center>
+        </div>
+
+<script>
+  const traits = [
+            /* Original */
+            "Solid",
+            "Liquid",
+            "Psycho",
+            "Decoy",
+            "Vulcan",
+            "Revolver", 
+            "Sniper",
+
+            /* Firearms */
+            "Rifle", 
+            "Shotgun", 
+            "Pistol",
+            "Bazooka",  
+            "Flamethrower",
+            "Rocket",
+            "Musket",
+            "Machine Gun",
+
+            /* Bladed Weapons */
+            "Knife",
+            "Dagger",
+            "Sword",
+            "Bayonet",
+            "Scythe",
+            "Sickle",
+            "Kama",
+            "Kukri",
+            "Machete",
+            "Katana",
+            "Rapier",
+            "Scimitar",
+            "Kris",
+            "Kopis",
+            "Cutlass",
+            "Sai",
+
+            /* Polearms */
+            "Pike",
+            "Partisan",
+            "Pilum",
+            "Halberd",
+            "Spear",
+            "Guandao",
+            "Bill",
+            "Naginata",
+            "Lance",
+            "Trident",
+            "Bident",
+
+            /* Blunt Weapons */
+            "Maul",
+            "Mace",
+            "Nunchaku",
+            "Warhammer",
+            "Morningstar",
+            "Kanabo",
+            "Sledgehammer",
+            "Flail",
+
+            /* Range Weapons */
+            "Slingshot",
+            "Boomerang",
+            "Crossbow",
+            "Shuriken",
+            "Kunai",
+            "Tomahawk",
+            "Chakram",
+            "Bolas",
+            "Shaken",
+            "Yumi",
+            "Blowgun",
+            "Cannon",
+            "Chainlock",
+
+            /* Forces of Nature */
+            "Hurricane",
+            "Tornado",
+            "Earthquake",
+            "Tsunami",
+            "Volcano",
+            "Avalanche",
+            "Wildfire",
+            "Blizzard",
+            "Cyclone",
+            "Hailstom",
+            "Lightning",
+            "Sandstorm",
+            "Heatwave",
+            "Calamity",
+            "Death",
+            "Supernova",
+            "Storm",
+            "Poison",
+            "Venom",
+            "Void",
+            "Chaos",
+            "Toxic",
+            "Fire",
+            "Gravity",
+
+            /* Elements */
+            "Iron",
+            "Plutonium",
+            "Mercury",
+            "Silver",
+            "Gold",
+            "Tin",
+            "Nitro",
+            "Lithium",
+            "Neon",
+            "Titanium",
+            "Adamantium",
+            "Plasma",
+
+            /* Planets and Gods */
+            "Saturn",
+            "Jupiter",
+            "Hades",
+            "Devil",
+            "Demon",
+            "Venus",
+
+            /* Other */
+            "Phantom",
+            "Panzer",
+            "Destruction",
+            "Devastation",
+            "Roaring",
+            "Lurking",
+            "Stalking",
+            "Hunting",
+            "Ripper",
+            "Vandal",
+            "Outlaw",
+            "Rampage",
+            "Cursed",
+            "Steel",
+            "Screaming",
+            "Terror",
+            "Lament",
+            "Sting",
+            "Hidden",
+            "Dancing",
+            "Patriot",
+            "Spirit",
+            "Diamond"
+  ];
+        
+  const animals = [
+            "Ocelot", 
+            "Wolf", 
+            "Octopus", 
+            "Mantis", 
+            "Snake", 
+            "Eagle", 
+            "Anaconda", 
+            "Fox", 
+
+            /* Mammals */
+            "Panda",
+            "Dolphin",
+            "Koala",
+            "Meerkat",
+            "Elephant",
+            "Chimpanzee",
+            "Bear",
+            "Orangutan",
+            "Otter",
+            "Hedgehog",
+            "Squirrel",
+            "Platypus",
+            "Raccoon",
+            "Cheetah",
+            "Leopard",
+            "Pika",
+            "Jaguar",
+            "Lion",
+            "Tiger",
+            "Cat",
+            "Orca",
+            "Hyena",
+            "Lynx",
+            "Wolverine",
+            "Dog",
+            "Kodiak",
+            "Grizzly",
+            "Dog",
+            "Dobermann",
+
+            /* Birds */
+            "Raven",
+            "Penguin",
+            "Owl",
+            "Hummingbird",
+            "Blue Jay",
+            "Peacock",
+            "Toucan",
+            "Puffin",
+            "Parrot",
+            "Flamingo",
+            "Sparrow",
+            "Falcon",
+            "Eagle",
+            "Osprey",
+            "Hawk",
+            "Tit",
+            "Raptor",
+            "Vulture",
+            "Condor",
+            "Kestrel",
+            "Chicken",
+            "Chango",
+            "Duck",
+            "Swan",
+
+            /* Reptiles */
+            "Turtle",
+            "Chameleon",
+            "Python",
+            "Komodo",
+            "Gecko",
+            "Crocodile",
+            "Alligator",
+            "Cobra",
+            "Mamba",
+            "Anaconda",
+            "Boomslang",
+
+            /* Amphibians */
+            "Axolotl",
+            "Tree Frog",
+            "Frog",
+            "Salamander",
+            "Coquí",
+
+            /* Fish */
+            "Shark",
+            "Clownfish",
+            "Seahorse",
+            "Angelfish",
+            "Betta",
+            "Barracuda",
+            "Jellyfish",
+            "Swordfish",
+
+            /* Invertebrates */
+            "Butterfly",
+            "Ladybug",
+            "Honey Bee",
+            "Firefly",
+            "Shrimp",
+            "Nudibranch",
+            "Scorpion",
+            "Mantis",
+            "Spider",
+            "Crab",
+            "Wasp",
+            "Beetle",
+            "Snail",
+            "Hornet",
+
+            /* Mythical Creatures */
+            "Seraph",
+            "Angel",
+            "Gorgon",
+            "Sphinx",
+            "Manticore",
+            "Faun",
+            "Hydra",
+            "Pegasus",
+            "Naga",
+            "Leviathan",
+            "Kraken",
+            "Serpent",
+            "Tengu",
+            "Banshee",
+            "Dragon",
+            "Yeti",
+            "Wendigo",
+            "Devil",
+            "Demon",
+            "Phoenix",
+
+            /* Other */
+            "Parasite",
+            "Anemone"
+  ]; 
+
+/*
+  function generateCodename() {
+    const randomTrait = traits[Math.floor(Math.random() * traits.length)];
+    const randomAnimal = animals[Math.floor(Math.random() * animals.length)];
+
+    document.getElementById("codename").innerText = randomTrait + " " + randomAnimal;
+
+    // Make the copy to clipboard button visible after generating the codename
+    document.getElementById("copyButton").style.display = "inline-block";
+  
+  }
+
+// Copy to clipboard 01
+  async function copyToClipboard() {
+    const codename = document.getElementById("codename").innerText;
+    try {
+      await navigator.clipboard.writeText(codename);
+      alert('Copied to clipboard!');
+    } catch (err) {
+      alert('Failed to copy text to clipboard');
+    }
+*/
+
+function copyToClipboard() {
+    let textToCopy = document.getElementById('codename').innerText;
+
+    // Create a temporary textarea element to copy from
+    let tempElement = document.createElement('textarea');
+    tempElement.value = textToCopy;
+    document.body.appendChild(tempElement);
+
+    // Select and copy the text
+    tempElement.select();
+    document.execCommand('copy');
+
+    // Clean up: remove the temporary element
+    document.body.removeChild(tempElement);
+}
+function generateCodename() {
+    const randomTrait = traits[Math.floor(Math.random() * traits.length)];
+    const randomAnimal = animals[Math.floor(Math.random() * animals.length)];
+
+    document.getElementById("codename").innerText = randomTrait + " " + randomAnimal;
+
+    // Enable the copy button
+    document.getElementById('copyButton').disabled = false;
+}
+
+
+
+  
+</script>
+</body>
+</html>
