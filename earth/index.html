@@ -1,1 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Sequence on Scroll</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        #image-sequence {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            object-position: center;
+        }
+        #content {
+            position: absolute;
+            width: 100%;
+            background: transparent;
+        }
+        #floaty {
+            margin-top: 50%;
+            color:white;
+            font-size:5em;
+        }
+    </style>
+</head>
+<body>
+    <img id="image-sequence" src="720/planet720.0001.png">
+    <div id="content">
+        <ul id="floaty">
+            <li><center> </center></li>
+        </ul>
+    </div>
+    <div style="height:4000px;"></div> 
 
+    <script>
+        var totalImages = 520;
+        var img = document.getElementById('image-sequence');
+
+        function handleScroll() {
+            var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrollTop = document.documentElement.scrollTop;
+
+            // If we've scrolled to the bottom, jump back to the top
+            if (scrollTop + window.innerHeight >= document.documentElement.scrollHeight) {
+                window.scrollTo(0, 1);
+                return;
+            }
+
+            // If we've scrolled to the top, jump to the bottom
+            if (scrollTop <= 0) {
+                window.scrollTo(0, scrollHeight - 1);
+                return;
+            }
+
+            // Calculate the percentage of the page that has been scrolled
+            var scrollPercent = scrollTop / scrollHeight;
+
+            // Determine the image index based on the scroll percentage
+            var imageIndex = Math.round(scrollPercent * (totalImages - 1)) + 1;
+
+            // Pad the imageIndex with leading zeros
+            var paddedIndex = String(imageIndex).padStart(4, '0');
+
+            // Change the image
+            img.src = '720/planet720.' + paddedIndex + '.png';
+        }
+
+        window.addEventListener("scroll", handleScroll, false);
+        window.addEventListener("touchmove", handleScroll, false);
+    </script>
+</body>
+</html>
