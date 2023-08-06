@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pedro's Character Description Generator v1.1.2</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Eagle+Lake&family=Gabriela&display=swap');
+        html{
+	font-family: 'Gabriela', serif;
+}
+	body {
+
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+        color:#cfcfcf;
+	    text-shadow: 
+        0px 0px 7px rgba(0, 0, 0, 1), 
+        0px 3px 0px rgba(0, 0, 0, 1), 
+        0px -1px 0px white;
+        }
+
+        #content {
+		margin-left: 10%;
+		margin-right: 10%;
+		text-align: center;
+        	position: relative;
+        	z-index: 1;
+           /* background-color: black; */
+        }
+
+        :root {
+            --brick-width: 60px;
+            --brick-height: 20px;
+            --brick-color-1: #212121;
+            --brick-color-2: #4c4c4c;
+            --mortar-color: #111111;
+            --mortar-thickness: 2px;
+        }
+
+        #brick-wall {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--mortar-color);
+            z-index: -1;
+        }
+
+        .brick-row {
+            display: flex;
+            position: relative;
+        }
+
+        .brick {
+            width: var(--brick-width);
+            height: var(--brick-height);
+            background: linear-gradient(0deg, var(--brick-color-1) 0%, var(--brick-color-2) 100%);
+            margin: var(--mortar-thickness);
+        }
+        
+        /* other styles here... */
+	#characterForm {
+	    animation: fadeIn 1s ease-in 1;
+            display: none;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+        }
+        #characterForm select {
+            flex: 1 0 calc(100% / 3 - 10px);
+            margin: 5px;
+            width:200px;
+            height:50px;
+            background-color: black;
+            color:lightgrey;
+            font-size:2em;
+
+        }
+
+        .button {
+            font-family: 'Eagle Lake', cursive;
+            flex-basis: 100%;
+            margin: 5px;
+            height: 100px;
+            background: linear-gradient(
+                rgba(141, 127, 154, 1),
+                rgba(94, 84, 103, 1)
+            ); /* change this to any color you prefer */
+            color: white; /* text color */
+            font-size:2em;
+            border-radius: 7px;  
+
+        }
+
+        #description {
+	    animation: fadeIn 1s ease-in 1;
+            font-size:3em;cc
+            margin: 15px;
+        }
+
+	@keyframes fadeIn {
+	    0% {opacity: 0;}
+	    100% {opacity: 1;}
+	}
+
+        @media (max-width: 768px) {
+            #characterForm select, #characterForm input {
+                flex-basis: 100%;
+            }
+            .button{
+                height:200px;
+            }
+
+       
+ }
+	.overlay {
+      		position: fixed;
+      		top: 0;
+      		left: 0;
+      		width: 100%;
+      		height: 100%;
+      		background: linear-gradient(
+        		rgba(0, 0, 0, 0),
+        		rgba(0, 0, 0, 0.9)
+			);
+      		z-index: 0;
+    	}
+	h1{
+	font-size: 5em;
+	font-family: 'Eagle Lake', cursive;
+
+}
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div id="brick-wall"></div>
+
+    <div id="content">
+        <!-- original content here... -->
+<div id="title"><h1><span style="font-size:.6em;font-family: 'Gabriela', serif;">Debaicheron's</span>
+	<br>INDOMITUS
+	<br><span style="font-size:.5em;font-family: 'Gabriela', serif;">Character Generator</span>
+	<span style="font-size:.4em;"> v1.1.2</span></h1></div>
+
+    <p id="description"></p>
+<br>
+<br>
+
+    <form id="characterForm">
+        <button class="button" id="copyButton" onclick="copyToClipboard()">Copy to Clipboard</button>
+
+        <select id="build">
+            <option value="Delicate">1.Delicate</option>
+            <option value="Gaunt">2.Gaunt</option>
+            <option value="Hulking">3.Hulking</option>
+            <option value="Lanky">4.Lanky</option>
+            <option value="Lithe">5.Lithe</option>
+            <option value="Muscular">6.Muscular</option>
+            <option value="Plump">7.Plump</option>
+            <option value="Short">8.Short</option>
+            <option value="Stout">9.Stout</option>
+            <option value="Supple">10.Supple</option>
+            <option value="Tall">11.Tall</option>
+            <option value="Wiry">12.Wiry</option>
+        </select>
+
+        <select id="features">
+             <option value="Beautiful">1.Beautiful</option>
+             <option value="Chiseled">2.Chiseled</option>
+             <option value="Delicate">3.Delicate</option>
+             <option value="Elegant">4.Elegant</option>
+             <option value="Gaunt">5.Gaunt</option>
+             <option value="Grotesque">6.Grotesque</option>
+             <option value="Heavy">7.Heavy</option>
+             <option value="Round">8.Round</option>
+             <option value="Rugged">9.Rugged</option>
+             <option value="Sharp">10.Sharp</option>
+             <option value="Strong">11.Strong</option>
+             <option value="Soft">12.Soft</option>
+        </select>
+        <select id="skin">
+             <option value="Dark">1.Dark</option>
+             <option value="Freckled">2.Freckled</option>
+             <option value="Pale">3.Pale</option>
+             <option value="Perfect">4.Perfect</option>
+             <option value="Pierced">5.Pierced</option>
+             <option value="Pockmarked">6.Pockmarked</option>
+             <option value="Rough">7.Rough</option>
+             <option value="Scarred">8.Scarred</option>
+             <option value="Soft">9.Soft</option>
+             <option value="Tanned">10.Tanned</option>
+             <option value="Tattooed">11.Tattooed</option>
+             <option value="Weathered">12.Weathered</option>
+        </select>
+        <select id="hair">
+             <option value="are Bald">1.Bald</option>
+             <option value="have Braided hair">2.Braided</option>
+             <option value="have Cornrows">3.Cornrows</option>
+             <option value="have Cropped hair">4.Cropped</option>
+             <option value="have Curly hair">5.Curly</option>
+             <option value="have Dreadlocks">6.Dreadlocks</option>
+             <option value="have Flowing hair">7.Flowing</option>
+             <option value="have Frizzy hair">8.Frizzy</option>
+             <option value="have a Mohawk">9.Mohawk</option>
+             <option value="have a Ponytail">10.Ponytail</option>
+             <option value="have a Topknot">11.Topknot</option>
+             <option value="have Wavy hair">12.Wavy</option>
+        </select>
+        <select id="garments">
+             <option value="Colorful">1.Colorful</option>
+             <option value="Drab">2.Drab</option>
+             <option value="Elegant">3.Elegant</option>
+             <option value="Extravagant">4.Extravagant</option>
+             <option value="Frayed">5.Frayed</option>
+             <option value="Plain">6.Plain</option>
+             <option value="Sensible">7.Sensible</option>
+             <option value="Scant">8.Scant</option>
+             <option value="Tattered">9.Tattered</option>
+             <option value="Tawdry">10.Tawdry</option>
+             <option value="Traditional">11.Traditional</option>
+             <option value="Work">12.Work</option>
+        </select>
+        <select id="voice">
+             <option value="Booming">1.Booming</option>
+             <option value="Breathy">2.Breathy</option>
+             <option value="Deep">3.Deep</option>
+             <option value="Flat">4.Flat</option>
+             <option value="Gravelly">5.Gravelly</option>
+             <option value="Growly">6.Growly</option>
+             <option value="Melodious">7.Melodious</option>
+             <option value="Raspy">8.Raspy</option>
+             <option value="Screeching">9.Screeching</option>
+             <option value="Smooth">10.Smooth</option>
+             <option value="Soft">11.Soft</option>
+             <option value="Squeaky">12.Squeaky</option>
+        </select>
+        <select id="speech">
+             <option value="Courteous">1.Courteous</option>
+             <option value="Cryptic">2.Cryptic</option>
+             <option value="Blunt">3.Blunt</option>
+             <option value="Bombastic">4.Bombastic</option>
+             <option value="Deliberate">5.Deliberate</option>
+             <option value="Fast">6.Fast</option>
+             <option value="Formal">7.Formal</option>
+             <option value="Flowery">8.Flowery</option>
+             <option value="Gruff">9.Gruff</option>
+             <option value="Mumbling">10.Mumbling</option>
+             <option value="Precise">11.Precise</option>
+             <option value="Rambling">12.Rambling</option>
+        </select>
+        <select id="virtue">
+             <option value="Bold">1.Bold</option>
+             <option value="Cautious">2.Cautious</option>
+             <option value="Compassionate">3.Compassionate</option>
+             <option value="Generous">4.Generous</option>
+             <option value="Honest">5.Honest</option>
+             <option value="Honorable">6.Honorable</option>
+             <option value="Humble">7.Humble</option>
+             <option value="Just">8.Just</option>
+             <option value="Kind">9.Kind</option>
+             <option value="Loyal">10.Loyal</option>
+             <option value="Methodical">11.Methodical</option>
+             <option value="Reasonable">12.Reasonable</option>
+        </select>
+        <select id="vice">
+             <option value="Arrogant">1.Arrogant</option>
+             <option value="Belligerent">2.Belligerent</option>
+             <option value="Conniving">3.Conniving</option>
+             <option value="Greedy">4.Greedy</option>
+             <option value="Impulsive">5.Impulsive</option>
+             <option value="Judgemental">6.Judgemental</option>
+             <option value="Lazy">7.Lazy</option>
+             <option value="Rude">8.Rude</option>
+             <option value="Stubborn">9.Stubborn</option>
+             <option value="Temperamental">10.Temperamental</option>
+             <option value="Vain">11.Vain</option>
+             <option value="Vulgar">12.Vulgar</option>
+        </select>
+        <input class="button" id="button" type="button" value="Generate Character" onclick="generateDescription()">
+        <input class="button" id="button" type="button" value="Generate Random Character" onclick="generateRandomDescription(), displayForm()">
+    </form>
+
+    <input class="button" id="randButton" type="button" value="Generate Character" onclick="generateRandomDescription(), displayForm()">
+    </div>
+   <br><br>
+
+    <script>
+        function copyToClipboard() {
+            let textToCopy = document.getElementById('description').innerText;
+event.preventDefault();
+            // Create a temporary textarea element to copy from
+            let tempElement = document.createElement('textarea');
+            tempElement.value = textToCopy;
+            document.body.appendChild(tempElement);
+
+            // Select and copy the text
+            tempElement.select();
+            document.execCommand('copy');
+
+            // Clean up: remove the temporary element
+            document.body.removeChild(tempElement);
+        }
+    function generateDescription() {
+
+
+        var build = document.getElementById('build').value;
+        var features = document.getElementById('features').value;
+        var skin = document.getElementById('skin').value;
+        var hair = document.getElementById('hair').value;
+        var garments = document.getElementById('garments').value;
+        var voice = document.getElementById('voice').value;
+        var speech = document.getElementById('speech').value;
+        var virtue = document.getElementById('virtue').value;
+        var vice = document.getElementById('vice').value;
+
+        var description = `Your character has a ${build} build, with ${features} features and ${skin} skin. They ${hair} and wear ${garments} garments. Their voice is ${voice} and they often speak in a ${speech} manner. They are often praised for being ${virtue}, but are also known to be somewhat ${vice}.`;
+
+        document.getElementById('description').innerText = description;
+
+    var descriptionElement = document.getElementById('description');
+    descriptionElement.style.animation = 'none';
+    descriptionElement.offsetHeight; /* trigger reflow */
+    descriptionElement.style.animation = null;
+
+
+    }
+    function generateRandomDescription() {
+        var selects = document.querySelectorAll('#characterForm select');
+        selects.forEach(select => {
+            var options = select.options;
+            select.selectedIndex = Math.floor(Math.random() * options.length);
+        });
+
+        generateDescription();
+            // Enable the copy button
+    document.getElementById('copyButton').disabled = false;
+
+    var descriptionElement = document.getElementById('description');
+    descriptionElement.style.animation = 'none';
+    descriptionElement.offsetHeight; /* trigger reflow */
+    descriptionElement.style.animation = null;
+
+
+
+    }
+
+    function displayForm() {
+        document.getElementById('characterForm').style.display = 'flex';
+        document.getElementById('randButton').style.display = 'none';
+    }
+
+
+	// brick scripts here...
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const brickWall = document.getElementById('brick-wall');
+            
+            const brickWidth = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--brick-width').replace('px', ''));
+            const brickHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--brick-height').replace('px', ''));
+            const mortarThickness = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--mortar-thickness').replace('px', ''));
+
+            const bricksPerRow = Math.floor(brickWall.clientWidth / (brickWidth + 2 * mortarThickness));
+            const bricksPerColumn = Math.floor(brickWall.clientHeight / (brickHeight + 2 * mortarThickness));
+
+            for(let i = 0; i < bricksPerColumn; i++) {
+                const brickRow = document.createElement('div');
+                brickRow.classList.add('brick-row');
+
+                if(i % 2 === 1) {
+                    brickRow.style.left = `${brickWidth / 2}px`;
+                }
+
+                for(let j = 0; j < bricksPerRow; j++) {
+                    const brick = document.createElement('div');
+                    brick.classList.add('brick');
+                    brickRow.appendChild(brick);
+                }
+
+                brickWall.appendChild(brickRow);
+            }
+        });
+
+
+    </script>
+</body>
+</html>
