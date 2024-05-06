@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Calculadora de Dimensiones de Imagen</title>
+<script>
+function calculateMissingDimension() {
+    // Obtener valores del formulario
+    var inputDimension = document.getElementById("dimension").value;
+    var dimensionValue = parseFloat(document.getElementById("dimensionValue").value);
+    var aspectRatio = document.getElementById("aspectRatio").value.split(":");
+
+    // Calcular la dimensión faltante
+    var aspectRatioWidth = parseInt(aspectRatio[0]);
+    var aspectRatioHeight = parseInt(aspectRatio[1]);
+    var missingDimension = 0;
+
+    if(inputDimension === 'width') {
+        missingDimension = (dimensionValue / aspectRatioWidth) * aspectRatioHeight;
+    } else if(inputDimension === 'height') {
+        missingDimension = (dimensionValue / aspectRatioHeight) * aspectRatioWidth;
+    }
+    // Mostrar el resultado
+    document.getElementById("result").innerHTML = "La dimensión faltante es: " + missingDimension.toFixed(2);
+
+    // Ajuste del contenedor de visualización según la relación de aspecto seleccionada
+    var display = document.getElementById('aspectRatioDisplay');
+    var maxWidth = 400; // Ancho máximo para el contenedor de visualización
+    var maxHeight = 200; // Altura máxima para mantener una proporción visual adecuada
+    var aspectRatioWidth = parseInt(aspectRatio[0]);
+    var aspectRatioHeight = parseInt(aspectRatio[1]);
+    var scale = Math.min(maxWidth / aspectRatioWidth, maxHeight / aspectRatioHeight);
+    
+    var displayWidth = aspectRatioWidth * scale;
+    var displayHeight = aspectRatioHeight * scale;
+
+    display.style.width = displayWidth + 'px';
+    display.style.height = displayHeight + 'px';
+    display.style.border = '2px solid #FFFFFF'; // Asegura que el borde sea visible
+}
+</script>
+<style>
+  body {
+    background-color: #2D2D2D; /* Fondo oscuro */
+    color: #E0E0E0; /* Texto claro */
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  select, input[type="number"], button {
+    background-color: #404040; /* Fondo de los elementos de formulario */
+    color: #FFFFFF; /* Texto de los elementos de formulario */
+    border: 1px solid #606060; /* Bordes sutiles para los elementos */
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px; /* Bordes redondeados */
+  }
+  
+  button {
+    cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+    transition: background-color 0.3s; /* Transición suave del color de fondo */
+  }
+  
+  button:hover {
+    background-color: #505050; /* Cambio de color al pasar el mouse */
+  }
+  
+  label {
+    display: block; /* Hace que cada control aparezca en su propia línea */
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Calculadora de Dimensiones de Imagen</h2>
+
+<label for="dimension">Dimensión conocida:</label>
+<select id="dimension">
+  <option value="width" selected="selected">Ancho</option>
+  <option value="height">Alto</option>
+</select>
+
+<label for="dimensionValue">Valor de la dimensión:</label>
+<input type="number" id="dimensionValue" name="dimensionValue" value="1280">
+
+<label for="aspectRatio">Relación de aspecto:</label>
+<select id="aspectRatio">
+  <option value="1:1">1:1 (Cuadrado)</option>
+  <option value="16:9" selected="selected">16:9 (Pantalla ancha)</option>
+  <option value="4:3">4:3 (Tradicional)</option>
+  <option value="3:2">3:2 (Fotografía)</option>
+  <option value="2:1">2:1 (Panorámica)</option>
+  <option value="21:9">21:9 (Ultra ancha)</option>
+  <option value="19.5:9">19.5:9 (Super retina)</option>
+  <option value="32:9">32:9 (Super ultra ancha)</option>
+  <option value="17:9">17:9 (Digital Cinema Initiatives)</option>
+
+</select>
+
+<button onclick="calculateMissingDimension()">Calcular</button>
+
+<div id="aspectRatioDisplay" style="border: 2px solid #FFFFFF; margin-top: 20px;"></div>
+
+<p id="result"></p>
+
+
+
+</body></html>
