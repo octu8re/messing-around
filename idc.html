@@ -39,6 +39,21 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 20px;
     line-height: 1.6;
+    margin: 0; /* Eliminar margen por defecto del body */
+    display: flex; /* Centrado en pantalla */
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    min-height: 100vh; /* Altura mínima para centrar verticalmente */
+  }
+
+  main {
+    background-color: var(--bg-color);
+    width: 100%;
+    max-width: 500px; /* Limita el ancho en dispositivos grandes */
+    padding: 20px;
+    box-sizing: border-box; /* Incluir padding en el ancho total */
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra para darle profundidad */
   }
 
   select, input[type="number"], button {
@@ -77,10 +92,20 @@
     background: var(--input-bg);
     border: 2px solid var(--border-color);
   }
+  
+  #result {
+    font-family: "Victor Mono", monospace; /* Cambia la familia de fuente */
+    color: var(--result-color); /* Cambia el color del texto */
+    font-size: 1.5em; /* Ajusta el tamaño de fuente según sea necesario */
+    margin-top: 15px;
+  }
 
   @media (max-width: 768px) {
     body {
       padding: 10px;
+    }
+    main {
+      padding: 15px;
     }
     select, input[type="number"], button {
       padding: 8px;
@@ -94,6 +119,9 @@
   @media (max-width: 480px) {
     body {
       padding: 5px;
+    }
+    main {
+      padding: 10px;
     }
     h2 {
       font-size: 1.5em;
@@ -109,7 +137,7 @@
 </style>
 </head>
 <body>
-
+    <main>
 <h1>Calculadora de Dimensiones de Imagen 2.2.0</h1>
 <article>
     Proyectito de práctica para calcular dimensiones de imagen para la creación de contenido audiovisual.
@@ -127,7 +155,7 @@
   <option value="height">Alto</option>
 </select>
 
-<label for="dimensionValue">Valor de la dimensión:</label>
+<label for="dimensionValue">Valor de la dimensión (px):</label>
 <input type="number" id="dimensionValue" name="dimensionValue" value="1280">
 
 <label for="aspectRatio">Relación de aspecto / Tasa dimensional:</label>
@@ -155,6 +183,7 @@
 </div>
 
 <button onclick="calculateMissingDimension()">Calcular</button>
+</main>
 
 <script>
 function calculateMissingDimension() {
