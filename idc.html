@@ -1,112 +1,188 @@
 <!DOCTYPE html>
-<html lang="es"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<html lang="es">
+<head>
 <meta charset="UTF-8">
 <title>Calculadora de Dimensiones de Imagen</title>
-<script>
-function calculateMissingDimension() {
-    // Obtener valores del formulario
-    var inputDimension = document.getElementById("dimension").value;
-    var dimensionValue = parseFloat(document.getElementById("dimensionValue").value);
-    var aspectRatio = document.getElementById("aspectRatio").value.split(":");
 
-    // Calcular la dimensión faltante
-    var aspectRatioWidth = parseInt(aspectRatio[0]);
-    var aspectRatioHeight = parseInt(aspectRatio[1]);
-    var missingDimension = 0;
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 
-    if(inputDimension === 'width') {
-        missingDimension = (dimensionValue / aspectRatioWidth) * aspectRatioHeight;
-    } else if(inputDimension === 'height') {
-        missingDimension = (dimensionValue / aspectRatioHeight) * aspectRatioWidth;
-    }
-    // Mostrar el resultado
-    document.getElementById("result").innerHTML = "La dimensión faltante es: " + missingDimension.toFixed(2);
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital@0;1&display=swap" rel="stylesheet">
 
-    // Ajuste del contenedor de visualización según la relación de aspecto seleccionada
-    var display = document.getElementById('aspectRatioDisplay');
-    var maxWidth = 400; // Ancho máximo para el contenedor de visualización
-    var maxHeight = 200; // Altura máxima para mantener una proporción visual adecuada
-    var aspectRatioWidth = parseInt(aspectRatio[0]);
-    var aspectRatioHeight = parseInt(aspectRatio[1]);
-    var scale = Math.min(maxWidth / aspectRatioWidth, maxHeight / aspectRatioHeight);
-    
-    var displayWidth = aspectRatioWidth * scale;
-    var displayHeight = aspectRatioHeight * scale;
-
-    display.style.width = displayWidth + 'px';
-    display.style.height = displayHeight + 'px';
-    display.style.border = '2px solid #FFFFFF'; // Asegura que el borde sea visible
-}
-</script>
 <style>
+    .vt323-regular {
+    font-family: "VT323", monospace;
+    font-weight: 400;
+    font-style: normal;
+    }
+
+    h1, h2 {
+        font-family: "Victor Mono", monospace;
+    }
+  :root {
+    --bg-color: #1c1c1c; /* Fondo oscuro */
+    --text-color: #e0e0e0; /* Texto claro */
+    --button-bg: #00ffa2; /* Verde fluorescente */
+    --button-hover-bg: #9b59b6; /* Púrpura vibrante */
+    --input-bg: #333; /* Fondo oscuro para inputs */
+    --border-color: #555; /* Color de borde oscuro */
+    --accent-color: #d5e68b; /* Verde claro amarillento para acentos */
+    --border-radius: 8px;
+  }
+
   body {
-    background-color: #2D2D2D; /* Fondo oscuro */
-    color: #E0E0E0; /* Texto claro */
-    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 20px;
+    line-height: 1.6;
   }
-  
+
   select, input[type="number"], button {
-    background-color: #404040; /* Fondo de los elementos de formulario */
-    color: #FFFFFF; /* Texto de los elementos de formulario */
-    border: 1px solid #606060; /* Bordes sutiles para los elementos */
-    padding: 5px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border-radius: 5px; /* Bordes redondeados */
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 10px;
+    border-radius: var(--border-radius);
   }
-  
+
   button {
-    cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
-    transition: background-color 0.3s; /* Transición suave del color de fondo */
+    background-color: var(--button-bg);
+    border: none;
+    color: #1c1c1c; /* Texto oscuro en botones para contraste */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: "VT323", monospace;
+    font-size: 3em;
   }
-  
+
   button:hover {
-    background-color: #505050; /* Cambio de color al pasar el mouse */
+    background-color: var(--button-hover-bg);
   }
-  
+
   label {
-    display: block; /* Hace que cada control aparezca en su propia línea */
     margin-top: 20px;
+    font-weight: bold;
+    color: var(--accent-color); /* Acento en las etiquetas */
+  }
+
+  #aspectRatioDisplay {
+    margin-top: 20px;
+    background: var(--input-bg);
+    border: 2px solid var(--border-color);
+  }
+
+  @media (max-width: 768px) {
+    body {
+      padding: 10px;
+    }
+    select, input[type="number"], button {
+      padding: 8px;
+      margin-top: 8px;
+    }
+    label {
+      margin-top: 15px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding: 5px;
+    }
+    h2 {
+      font-size: 1.5em;
+    }
+    select, input[type="number"], button {
+      padding: 6px;
+      margin-top: 6px;
+    }
+    label {
+      margin-top: 10px;
+    }
   }
 </style>
 </head>
 <body>
 
-<h2>Calculadora de Dimensiones de Imagen</h2>
-    
-<div id="aspectRatioDisplay" style="border: 2px solid #FFFFFF; margin-top: 20px;"></div>
+<h1>Calculadora de Dimensiones de Imagen 2.2.0</h1>
 
+<div id="aspectRatioDisplay"></div>
 <p id="result"></p>
 
 <label for="dimension">Dimensión conocida:</label>
 <select id="dimension">
-  <option value="width" selected="selected">Ancho</option>
+  <option value="width" selected>Ancho</option>
   <option value="height">Alto</option>
 </select>
 
 <label for="dimensionValue">Valor de la dimensión:</label>
 <input type="number" id="dimensionValue" name="dimensionValue" value="1280">
 
-<label for="aspectRatio">Relación de aspecto:</label>
+<label for="aspectRatio">Relación de aspecto / Tasa dimensional:</label>
 <select id="aspectRatio">
   <option value="1:1">1:1 (Cuadrado)</option>
-  <option value="16:9" selected="selected">16:9 (Pantalla ancha)</option>
-  <option value="4:3">4:3 (Tradicional)</option>
+  <option value="16:9" selected>16:9 (Pantalla ancha / Widescreen)</option>
+  <option value="16:10" selected>16:10 (Pantalla ancha / Widescreen)</option>
+  <option value="19.5:9">19.5:9 (Super retina - iPhone 12,13,14)</option>
   <option value="3:2">3:2 (Fotografía)</option>
+  <option value="4:3">4:3 (TV Tradicional)</option>
+  <option value="21:9">21:9 (Ultra-Wide)</option>
+  <option value="1.85:1">1.85:1 Cine (Academy Flat)</option>
+  <option value="2.39:1">2.39:1 CineScope (Anamórfico)</option>
+  <option value="32:9">32:9 (Super Ultra-wide)</option>
+  <option value="5:4">5:4 Fotografía y Video Antiguo</option>
   <option value="2:1">2:1 (Panorámica)</option>
-  <option value="21:9">21:9 (Ultra ancha)</option>
-  <option value="19.5:9">19.5:9 (Super retina)</option>
-  <option value="32:9">32:9 (Super ultra ancha)</option>
-  <option value="17:9">17:9 (Digital Cinema Initiatives)</option>
-
 </select>
+
+<label for="orientation">Orientación:</label>
+<div>
+  <input type="radio" id="portrait" name="orientation" value="portrait" checked>
+  <label for="portrait">Vertical (Portrait)</label>
+  <input type="radio" id="landscape" name="orientation" value="landscape">
+  <label for="landscape">Horizontal (Landscape)</label>
+</div>
 
 <button onclick="calculateMissingDimension()">Calcular</button>
 
+<script>
+function calculateMissingDimension() {
+    var inputDimension = document.getElementById("dimension").value;
+    var dimensionValue = parseFloat(document.getElementById("dimensionValue").value);
+    var aspectRatio = document.getElementById("aspectRatio").value.split(":");
+    var aspectRatioWidth = parseInt(aspectRatio[0]);
+    var aspectRatioHeight = parseInt(aspectRatio[1]);
 
+    // Obtener la orientación seleccionada
+    var orientation = document.querySelector('input[name="orientation"]:checked').value;
 
+    // Ajustar el cálculo según la orientación
+    if (orientation === 'portrait') {
+        var temp = aspectRatioWidth;
+        aspectRatioWidth = aspectRatioHeight;
+        aspectRatioHeight = temp;
+    }
 
+    var missingDimension = inputDimension === 'width' 
+        ? (dimensionValue / aspectRatioWidth) * aspectRatioHeight 
+        : (dimensionValue / aspectRatioHeight) * aspectRatioWidth;
+    
+    document.getElementById("result").innerHTML = "La dimensión faltante es: " + missingDimension.toFixed(2);
+    adjustDisplay(aspectRatioWidth, aspectRatioHeight);
+}
 
-</body></html>
+function adjustDisplay(width, height) {
+    var display = document.getElementById('aspectRatioDisplay');
+    var scale = Math.min(400 / width, 200 / height);
+    display.style.width = (width * scale) + 'px';
+    display.style.height = (height * scale) + 'px';
+}
+</script>
+
+</body>
+</html>
