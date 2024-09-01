@@ -1,86 +1,249 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            background-color: #111;
-            color: #fff;
-            font-family: Arial, sans-serif;
-        }
-        
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 0 15px;
-        }
-        
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        
-        ul li {
-            border: 1px solid #fff;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            text-align: center;
-        }
-        
-        ul li a {
-            text-decoration: none;
-            color: #fff;
-        }
-        
-        ul li a:hover {
-            color: #888;
-        }
-        
-        @media screen and (min-width: 600px) {
-            ul li {
-                width: 50%;
-            }
-        }
-        
-        @media screen and (min-width: 390px) {
-            ul li {
-                font-size: 1.5em;
-            }
-            #title {
-                margin: 0%;
-                text-align: left;
-                font-size:3em;
-                
-            }
-        }
-        @media screen and (min-width: 900px) {
-            ul li {
-                font-size: 1.5em;
-                width: 100%;
-            }
-            #title {
-                margin: 0%;
-                text-align: left;
-                font-size:3em;
-                
-            }
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>octu8re/messing-around</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 400 to 700
+
+.pixelify-sans-<uniquifier> {
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.press-start-2p-regular {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+.dotgothic16-regular {
+  font-family: "DotGothic16", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+/* General styles */
+* {
+    box-sizing: border-box; /* Include padding and border in the element's width and height */
+}
+
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-image: url('grid_02.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Hace que la imagen se mantenga fija mientras se hace scroll */
+    color: #cfcfcf;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+
+    
+}
+
+header {
+    background-color: rgba(51, 51, 51, 0.8); /* Fondo semitransparente */
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    font-family: "DotGothic16", sans-serif;
+
+}
+
+a {
+    color:#00ffa2;
+    text-decoration: none;
+}
+
+a:hover {
+    color:#d5e68b;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #9b59b6; /* Color púrpura para enlaces visitados */
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    overflow: hidden;
+  /*  background-color: rgba(255, 255, 255, 0.25); /* Fondo semitransparente */
+  /*  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+/* Article styled like a 90s Windows window in dark mode */
+article {
+    background-color: rgba(51, 51, 51, 0.4); /* Dark grey background */
+    border: 2px solid #000; /* Black outer border for the 3D effect */
+    border-top-color: #505050; /* Lighter border on the top and left for 3D effect */
+    border-left-color: #505050;
+    border-right-color: #000; /* Darker border on the bottom and right for 3D effect */
+    border-bottom-color: #000;
+    padding: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    max-width: 100%; /* Ensure the article does not exceed the width of its container */
+    overflow: hidden; /* Add horizontal scrolling if content overflows */
+    font-family: "Press Start 2P", system-ui;
+}
+
+/* Title bar at the top of the article in dark mode */
+article::before {
+    content: "/messing-around"; /* Dynamically changeable with JavaScript */
+    display: block;
+    background-color: #333333; /* Dark grey title bar */
+    color: #ffffff; /* White text for contrast */
+    padding: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    top: -10px; /* Adjust to align with the article box */
+    left: -10px; /* Aligns with the left padding */
+    width: calc(100% + 20px); /* Ensures the title bar spans across the entire article */
+    box-sizing: border-box;
+    overflow: hidden;
+    font-family: "DotGothic16", sans-serif;
+}
+
+/* Restrict images within articles to the width of the article */
+article img {
+    max-width: 100%;
+    height: auto; /* Maintains the aspect ratio */
+    display: block; /* Removes inline spacing around images */
+    margin: 10px 0; /* Optional: Adds some margin around images */
+}
+
+h1, h2 {
+    color: #fff;
+}
+
+footer {
+    background-color: rgba(51, 51, 51, 0.8); /* Fondo semitransparente */
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Media Queries para diseño responsive */
+@media (max-width: 768px) {
+    main {
+        width: 90%;
+        padding: 10px;
+        box-shadow: none;
+    }
+
+    nav a {
+        display: block;
+        margin: 5px 0;
+        padding: 10px 0;
+    }
+
+    header {
+        padding: 20px 0;
+    }
+
+    footer {
+        position: static;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 16px;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    main {
+        width: 100%;
+        padding: 5px;
+    }
+
+    article {
+        padding: 10px;
+    }
+}
+
+
+</style>
+
+
 </head>
 <body>
-    <div class="container">
-        <h1 id="title">messing </br>around</h1>
-        <ul>
-            <li><a href="codenames/index.html" target="_blank">Codename Generator</a></li>
-            <li><a href="idc.html" target="_blank">Image Dimension Calculator</a></li>
-            <li><a href="https://octu8re.github.io/myLittleGalaxy" target="_blank">myLittleGalaxy</a></li>
-            <li><a href="https://cvelez.pythonanywhere.com" target="_blank">FIGlet Art Generator</a></li>
-            <!-- Add more list items as needed -->
-        </ul>
-    </div>
+    <header>
+        <h1>octu8re.github.io</h1>
+      <!--  <nav>
+            <a href="#">Inicio</a>
+            <a href="#">Sobre Mí</a>
+            <a href="#">Contacto</a>
+        </nav>
+        -->
+    </header>
+<main>
+<article>
+    Un espacio para compartir mis embelecos.
+    <ul>
+        <li><a href="codenames/index.html" target="_blank">MGS Codename Generator</a></li>
+        <li><a href="idc.html" target="_blank">Image Dimension Calculator</a></li>
+        <li><a href="https://octu8re.github.io/myLittleGalaxy" target="_blank">myLittleGalaxy</a></li>
+        <li><a href="https://cvelez.pythonanywhere.com" target="_blank">FIGlet Art Generator</a></li>
+        <!-- Add more list items as needed -->
+    </ul>
+</article>
+
+<article>
+    Más...
+    <ul>
+        <li><a href="http://chrisvelez.carbonmade.com" target="_blank">mi portafolio</a></li>
+        <li><a href="http://instagram.com/octu8re" target="_blank">mi instagram</a></li>
+        <li><a href="http://github.com/octu8re" target="_blank">mi github</a></li>
+        <p></p>
+    ...¿qué más?
+        <!-- Add more list items as needed -->
+    </ul>
+</article>
+
+</main>
+
+<footer>
+    <p>&copy; 2024 octu8re | CC BY-ND. Todos los derechos reservados.</p>
+</footer>
+
 </body>
 </html>
