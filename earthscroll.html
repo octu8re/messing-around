@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Sequence on Scroll</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        #image-sequence {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+        }
+        #content {
+            position: absolute;
+            width: 100%;
+            background: transparent;
+            z-index: 2;
+        }
+        #floaty {
+            margin-top: 50%;
+            color:white;
+            font-size:5em;
+            list-style-type: none;
+        }
+        #filter-layer {
+            position: fixed;  /* Fijo para que se mantenga en la misma posición en la pantalla */
+            width: 100vw;     /* Ancho completo de la ventana */
+            height: 100vh;    /* Alto completo de la ventana */
+            pointer-events: none;  /* Permite que los clics pasen a través de esta capa */
+            background-image: url('filtex.png'); /* Reemplaza con la ruta de tu imagen */
+            background-repeat: repeat; /* Repite la imagen de fondo */
+            z-index: 1;       /* Asegura que esté entre la secuencia de imágenes y el contenido */
+}
+
+    </style>
+</head>
+<body>
+    <img id="image-sequence" src="earth/pl_new.001.png">
+    
+    <div id="filter-layer"></div>
+
+    <div id="content">
+        <ul id="floaty">
+            <li><center>planet scroll</center></li>
+        </ul>
+    </div>
+    <div style="height:40000px;"></div>
+
+
+    <script>
+        var totalImages = 520;
+        var img = document.getElementById('image-sequence');
+
+        function handleScroll() {
+            var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrollTop = document.documentElement.scrollTop;
+
+            // If we've scrolled to the bottom, jump back to the top
+            if (scrollTop + window.innerHeight >= document.documentElement.scrollHeight) {
+                window.scrollTo(0, 1);
+                return;
+            }
+
+            // If we've scrolled to the top, jump to the bottom
+            if (scrollTop <= 0) {
+                window.scrollTo(0, scrollHeight - 1);
+                return;
+            }
+
+            // Calculate the percentage of the page that has been scrolled
+            var scrollPercent = scrollTop / scrollHeight;
+
+            // Determine the image index based on the scroll percentage
+            var imageIndex = Math.round(scrollPercent * (totalImages - 1)) + 1;
+
+            // Pad the imageIndex with leading zeros
+            var paddedIndex = String(imageIndex).padStart(3, '0');
+
+            // Change the image
+            img.src = 'earth/pl_new.' + paddedIndex + '.png';
+        }
+
+        window.addEventListener("scroll", handleScroll, false);
+        window.addEventListener("touchmove", handleScroll, false);
+    </script>
+</body>
+</html>
