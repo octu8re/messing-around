@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap" rel="stylesheet">
+    <title>Soundboard con Modos de Reproducción</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-family: Doto;
+            font-size: 1.8em;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-family: Doto;
+            font-size: 1em;
+        }
+
+        /* Botones */
+        .sound-button, .toggle-button, .stop-button {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border: 2px solid #333333;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .sound-button:hover, .toggle-button:hover, .stop-button:hover {
+            background-color: #333333;
+        }
+
+        .grid {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        }
+
+	 /* Footer */
+        footer {
+            text-align: center;
+            color: #777;
+            font-size: 0.8em;
+            margin-top: 20px;
+        }
+
+        footer .image{
+            width: 50%;
+            height: auto;
+        }
+
+    /* Active Sound */
+
+        .sound-button.active {
+        background-color: #555;
+        border-color: #888;
+    }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>モフォンゴ</br>Drops 0.1.3</h1>
+    
+    <!-- Botón para alternar modos -->
+    <button class="toggle-button" onclick="toggleMode()">Modo: Solapamiento</button>
+    
+    <!-- Botón para detener todos los sonidos -->
+    <button class="stop-button" onclick="stopAllSounds()">Detener Sonido</button>
+
+    <!-- Contenedor de botones en cuadrícula -->
+
+        <h2>Emociones y Reacciones</h2>
+        <div class="grid">
+            <button class="sound-button" onclick="playSound('anime-wow-sound-effect')">Wow</button>
+            <button class="sound-button" onclick="playSound('bruh-sound-effect_WstdzdM')">BRUH</button>
+            <button class="sound-button" onclick="playSound('studio-audience-awwww-sound-fx')">Awwwww</button>
+            <button class="sound-button" onclick="playSound('downer_noise')">Womp womp</button>
+            <button class="sound-button" onclick="playSound('rizz-sound-effect')">The Rizz</button>
+            <button class="sound-button" onclick="playSound('meow-1')">Cat Hello</button>
+            <button class="sound-button" onclick="playSound('angry4')">Cat Angry</button>
+            <button class="sound-button" onclick="playSound('oh-my-god-meme')">OhMahGad</button>
+
+        </div>
+
+        <h2>Éxitos y Triunfos</h2>
+        <div class="grid">
+            <button class="sound-button" onclick="playSound('money-soundfx')">Ka-shing!</button>
+            <button class="sound-button" onclick="playSound('levelup')">MineCraft LvlUp</button>
+            <button class="sound-button" onclick="playSound('magic-fairy')">Magic</button>
+            <button class="sound-button" onclick="playSound('fnaf-hooray')">Yaaaayy!</button>
+            <button class="sound-button" onclick="playSound('gta-san-andreas-_RZMwPB0')">GTA Success</button>
+            <button class="sound-button" onclick="playSound('pokemonSuccess')">Poke Success</button>
+            <button class="sound-button" onclick="playSound('metal-slug-mission-complete')">Mission Complete</button>
+            <button class="sound-button" onclick="playSound('139-item-catch')">zelda chest</button>
+        </div>
+
+        <h2>Errores y Desafíos</h2>
+        <div class="grid">
+            <button class="sound-button" onclick="playSound('among-us-role-reveal-sound')">amongUs sus</button>
+            <button class="sound-button" onclick="playSound('error_CDOxCYm')">Error</button>
+            <button class="sound-button" onclick="playSound('meme-de-creditos-finales')">Curb</button>
+            <button class="sound-button" onclick="playSound('spongebob-fail')">Fail</button>
+            <button class="sound-button" onclick="playSound('tf_nemesis')">Sad Violin</button>
+            <button class="sound-button" onclick="playSound('sadSong')">sad Song</button>
+            <button class="sound-button" onclick="playSound('censor-beep-1')">BLEEP</button>
+            <button class="sound-button" onclick="playSound('spongebob-dolphin-censor')">dolphin Bleep</button>
+        </div>
+        
+        <h2>Efectos Dramáticos</h2>
+        <div class="grid">
+            <button class="sound-button" onclick="playSound('dun-dun-dun-sound-effect-brass_8nFBccR')">Dun-dun-duuun</button>
+            <button class="sound-button" onclick="playSound('undertakers-bell_2UwFCIe')">Undertaker Bell</button>
+            <button class="sound-button" onclick="playSound('metal-gear-alert-sound-effect_XKoHReZ')">Alert</button>
+            <button class="sound-button" onclick="playSound('leroy-jenkins')">Leroy Jenkins</button>
+            <button class="sound-button" onclick="playSound('lovely-sound-alert')">wiiSports Deaf</button>  
+        </div>
+        
+
+        <h2>Humor y Comedia</h2>
+        <div class="grid">
+            <button class="sound-button" onclick="playSound('laugh-track-2-mp3cut')">laugh track</button>
+            <button class="sound-button" onclick="playSound('seinfeld-laugh-track')">seinfeld Laugh</button>
+            <button class="sound-button" onclick="playSound('bonk_7zPAD7C')">Cabeza Hueca</button>
+            <button class="sound-button" onclick="playSound('slap_n1PUGaN')">whoosh punch</button>
+            <button class="sound-button" onclick="playSound('classic_hurt')">MineCraft Hurt</button>
+            <button class="sound-button" onclick="playSound('roblox-death-sound_1')">roblox Oof</button>
+            <button class="sound-button" onclick="playSound('boi-yoi-yoi-yoi-yoing-and-drum-hit')">boi yoi yong</button>
+            <button class="sound-button" onclick="playSound('punch-gaming-sound-effect-hd_RzlG1GE')">punch</button>
+            <button class="sound-button" onclick="playSound('slap-sound-effect-free')">slap</button>
+            <button class="sound-button" onclick="playSound('johnny-test-whip-crack')">Whip Crack</button>
+            <button class="sound-button" onclick="playSound('enemy-downed-cod-warzone')">warzon Downed</button>
+            <button class="sound-button" onclick="playSound('fortniteDowned')">fortnite Downed</button>
+
+
+            <button class="sound-button" onclick="playSound('dry-fart')">Dry Fart</button>
+            <button class="sound-button" onclick="playSound('perfect-fart')">Fart</button>
+            <button class="sound-button" onclick="playSound('fart-with-extra-reverb')">Mic Drop</button>
+
+        </div>
+        
+        <h2>Momentos Icónicos y Referencias</h2>
+        <div class="grid">
+            <button class="sound-button" onclick="playSound('mii-channel-music')">Mii Music</button>
+
+            <button class="sound-button" onclick="playSound('deja-vu-fade')">DejaVu</button>
+            <button class="sound-button" onclick="playSound('snoop')">snoop</button>
+            <button class="sound-button" onclick="playSound('elchavodel8')">El Chavo Theme</button>
+            <button class="sound-button" onclick="playSound('bueno-pero-no-se-enoje-ramon')">No Se Enoje!</button>
+            <button class="sound-button" onclick="playSound('maro-jump-sound-effect_1')">Mario Jump</button>
+            <button class="sound-button" onclick="playSound('guile-theme-2')">Guile Theme</button>
+            <button class="sound-button" onclick="playSound('a-few-moments-later-sponge-bob-sfx-fun')">A Few Moments Later</button>
+            <button class="sound-button" onclick="playSound('street-fighter-ii-confirm')">SFii Confirm</button>
+            <button class="sound-button" onclick="playSound('dale-zelda-dale')">Dale Zelda</button>
+            <button class="sound-button" onclick="playSound('pedro-song')">Pedro Song</button>
+            <button class="sound-button" onclick="playSound('catEatingChips')">Cat Eating Chips</button>
+        </div>
+        
+
+        <!--
+        <div class="grid">
+            
+            <button class="sound-button" onclick="playSound('mii-channel-music')">Mii Music</button>
+            <button class="sound-button" onclick="playSound('pokemonSuccess')">Poke Success</button>
+            <button class="sound-button" onclick="playSound('fart-with-extra-reverb')">MIc Drop</button>
+            <button class="sound-button" onclick="playSound('fart-with-extra-reverb')">MIc Drop</button>
+
+
+        </div>
+        -->
+        <footer>
+            <button class="sound-button" onclick="playSound('catEatingChips')"><img class="image" src="./images/cat-chips.gif"></button>
+            <p>Soundboard creado por Christian Vélez. Todos los efectos sonoros utilizados con fines educativos y recreativos.</p>
+        </footer>
+
+    </div>
+
+</div>
+
+<!-- Créditos en el Footer -->
+
+
+
+<script>
+    let overlapMode = true;     // Modo solapamiento activado inicialmente
+    let currentAudio = null;    // Variable para el modo sin solapamiento
+    let activeAudios = [];      // Almacena todas las instancias de audio en modo solapamiento
+
+   // Mapeo de teclas del numpad a sonidos
+   const numpadKeyToSound = {
+        Numpad1: 'anime-wow-sound-effect',      // Numpad 1 para 'Wow'
+        Numpad2: 'bruh-sound-effect_WstdzdM',  // Numpad 2 para 'BRUH'
+        Numpad3: 'studio-audience-awwww-sound-fx', // Numpad 3 para 'Awwwww'
+        Numpad4: 'punch-gaming-sound-effect-hd_RzlG1GE',              // Numpad 4 para 'punch'
+        Numpad5: 'slap-sound-effect-free',                    // Numpad 5 para 'slap'
+        Numpad6: 'classic_hurt',                   // Numpad 6 para 'MC hurt'
+        Numpad7: 'dry-fart',   
+        Numpad8: 'fortniteDowned',
+        Numpad0: 'oh-my-god-meme',
+        NumpadDecimal: 'spongebob-fail',
+        NumpadAdd: 'roblox-death-sound_1',
+
+
+    };
+
+     // Escuchar el evento de teclado
+     document.addEventListener('keydown', (event) => {
+        if (event.code === 'Escape') {
+            // Si se presiona Esc, detener todos los sonidos
+            stopAllSounds();
+        } else {
+            // De lo contrario, buscar si la tecla presionada está mapeada a un sonido
+            const sound = numpadKeyToSound[event.code];
+            if (sound) {
+                playSound(sound); // Reproduce el sonido asignado
+            }
+        }
+    });
+
+   
+   
+   
+   
+    // Alternar entre los modos
+    function toggleMode() {
+        overlapMode = !overlapMode;
+        const modeText = overlapMode ? "Modo: Solapamiento" : "Modo: Sin Solapamiento";
+        document.querySelector('.toggle-button').textContent = modeText;
+    }
+
+    // Reproducir sonido
+    function playSound(sound) {
+        // Encuentra el botón asociado al sonido
+        const button = document.querySelector(`[onclick="playSound('${sound}')"]`);
+
+        if (overlapMode) {
+            // Modo solapamiento: añade cada instancia de audio al arreglo activeAudios
+            const audio = new Audio(`./sounds/${sound}.mp3`);
+            audio.play();
+            activeAudios.push(audio);
+
+            // Marca el botón como activo
+            button.classList.add('active');
+
+            // Remueve el audio del arreglo y desactiva el botón cuando termina
+            audio.onended = () => {
+                activeAudios = activeAudios.filter(a => a !== audio);
+                button.classList.remove('active');
+            };
+        } else {
+            // Modo sin solapamiento: detiene el audio actual antes de reproducir el nuevo
+            stopAllSounds();
+
+            // Crea y reproduce el nuevo audio
+            currentAudio = new Audio(`./sounds/${sound}.mp3`);
+            currentAudio.play();
+
+            // Marca el botón como activo
+            button.classList.add('active');
+
+            // Desactiva el botón cuando el audio termina
+            currentAudio.onended = () => {
+                button.classList.remove('active');
+            };
+        }
+    }
+
+    // Detener todos los sonidos en reproducción
+    function stopAllSounds() {
+        if (overlapMode) {
+            // Pausa y limpia todas las instancias en activeAudios
+            activeAudios.forEach(audio => {
+                audio.pause();
+                audio.currentTime = 0;
+            });
+            activeAudios = []; // Limpia el arreglo
+
+            // Remueve la clase activa de todos los botones
+            document.querySelectorAll('.sound-button.active').forEach(button => {
+                button.classList.remove('active');
+            });
+        } else {
+            // Pausa el audio en curso en el modo sin solapamiento
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null; // Resetea la variable
+
+                // Remueve la clase activa del botón actual
+                document.querySelectorAll('.sound-button.active').forEach(button => {
+                    button.classList.remove('active');
+                });
+            }
+        }
+    }
+</script>
+
+
+
+
+</body>
+</html>
